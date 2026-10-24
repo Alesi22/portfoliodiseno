@@ -1,65 +1,61 @@
-// Esperar a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. Funcionalidad del Menú Hamburguesa
-    const menuToggle = document.querySelector('.menu-toggle');
+    // 1. Menú Móvil (Toggle)
+    const menuBtn = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     const links = document.querySelectorAll('.nav-links a');
 
-    // Abrir/cerrar menú al hacer click en el botón
-    menuToggle.addEventListener('click', () => {
+    menuBtn.addEventListener('click', () => {
         navLinks.classList.toggle('active');
     });
 
-    // Cerrar menú móvil al hacer click en un enlace
+    // Cerrar menú al hacer clic en un enlace (mobile)
     links.forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');
         });
     });
 
-    // 2. Expansión de Casos de Estudio (Cards)
-    const toggleButtons = document.querySelectorAll('.toggle-details');
+    // 2. Acordeón para expandir Casos de Estudio en Cards
+    const toggleButtons = document.querySelectorAll('.toggle-btn');
 
-    toggleButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            // Encuentra el contenedor de detalles asociado a este botón
-            const card = e.target.closest('.project-card');
-            const details = card.querySelector('.project-details');
+    toggleButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const card = this.closest('.card');
+            const details = card.querySelector('.card-details');
             
-            // Alterna la clase 'show'
-            details.classList.toggle('show');
+            // Alterna la clase open para animar altura y opacidad por CSS
+            details.classList.toggle('open');
             
-            // Cambia el texto del botón dependiendo del estado
-            if (details.classList.contains('show')) {
-                e.target.innerHTML = 'Ocultar detalles &uarr;';
+            // Cambiar texto dinámicamente
+            if (details.classList.contains('open')) {
+                this.textContent = 'Ocultar detalles';
             } else {
-                e.target.innerHTML = 'Ver caso de estudio &rarr;';
+                this.textContent = 'Ver caso de estudio';
             }
         });
     });
 
-    // 3. Animación Fade-in al hacer Scroll (Intersection Observer)
+    // 3. Intersect Observer para animaciones "fade-in" al hacer scroll
     const fadeElements = document.querySelectorAll('.fade-in');
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.15 // Se activa cuando el 15% del elemento es visible
-    };
-
-    const scrollObserver = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Agrega la clase que desencadena la animación CSS
                 entry.target.classList.add('visible');
-                // Dejamos de observar una vez que ya apareció
-                observer.unobserve(entry.target); 
+                // Deja de observar para que la animación suceda solo una vez
+                observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1 // Se activa cuando el 10% del elemento es visible en pantalla
+    });
 
     fadeElements.forEach(el => {
-        scrollObserver.observe(el);
+        observer.observe(el);
     });
 
 });
