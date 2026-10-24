@@ -1,0 +1,397 @@
+/* ==========================================================================
+   VARIABLES DE COLOR Y TIPOGRAFÍA (Definidas en los requerimientos)
+   ========================================================================== */
+:root {
+    --bg-main: #0F0E17;
+    --bg-secondary: #1A1830;
+    --text-main: #E8E6F0;
+    --text-secondary: #9B97B0;
+    --accent: #7C3AED;
+    --accent-hover: #A78BFA;
+    --shadow-accent: rgba(124, 58, 237, 0.15);
+    --nav-bg: rgba(15, 14, 23, 0.9);
+    --font-main: 'Inter', sans-serif;
+}
+
+/* ==========================================================================
+   RESETEO Y ESTILOS BASE
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-hover);
+}
+
+/* ==========================================================================
+   NAVEGACIÓN FIJA (Mobile First)
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px); /* Efecto cristal */
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+/* Menú oculto en móvil por defecto */
+.nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--bg-secondary);
+    padding: 1rem;
+    text-align: center;
+}
+
+.nav-links.active {
+    display: flex; /* Se muestra con JS */
+}
+
+.nav-links a {
+    color: var(--text-main);
+    padding: 1rem 0;
+    font-weight: 500;
+}
+
+/* Botón Hamburguesa */
+.menu-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 2px;
+    background: var(--text-main);
+    transition: 0.3s;
+}
+
+/* ==========================================================================
+   BOTONES
+   ========================================================================== */
+.btn-primary {
+    display: inline-block;
+    background-color: var(--accent);
+    color: #FFF;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+    color: #FFF;
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 1rem;
+}
+
+.btn-text:hover {
+    color: var(--accent-hover);
+}
+
+/* ==========================================================================
+   SECCIONES Y LAYOUTS
+   ========================================================================== */
+section {
+    padding: 6rem 0 4rem; /* Espacio para el navbar fijo */
+}
+
+/* Hero */
+#hero {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+}
+
+#hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+}
+
+.text-accent {
+    color: var(--accent);
+}
+
+.role {
+    color: var(--text-main);
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-bottom: 2rem;
+}
+
+/* Sobre Mí */
+.sobre-mi-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.placeholder-box {
+    background-color: var(--bg-secondary);
+    border: 1px dashed var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    border-radius: 12px;
+}
+
+.profile-placeholder {
+    width: 100%;
+    aspect-ratio: 1/1;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Proyectos (Cards) */
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.project-card {
+    background-color: var(--bg-secondary);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Animación Hover requerida */
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px var(--shadow-accent);
+}
+
+.project-card .placeholder-box {
+    height: 200px;
+    border: none;
+    border-radius: 0;
+    background-color: #252243;
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.tag {
+    display: inline-block;
+    background: rgba(124, 58, 237, 0.2);
+    color: var(--accent-hover);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+/* Caso de estudio oculto */
+.project-details {
+    display: none; /* Oculto por defecto */
+    padding: 0 1.5rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
+.project-details.show {
+    display: block;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.project-details h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.project-details p {
+    font-size: 0.9rem;
+}
+
+/* Laboratorio */
+.lab-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.small-box {
+    height: 150px;
+    margin-bottom: 1rem;
+}
+
+/* Contacto */
+.contacto-container {
+    max-width: 600px;
+    text-align: center;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.contact-form input, .contact-form textarea {
+    background: var(--bg-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: var(--font-main);
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 4rem;
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   ANIMACIONES DE SCROLL (JS Observer)
+   ========================================================================== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (Desktop y Tablets)
+   ========================================================================== */
+@media (min-width: 768px) {
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        width: auto;
+        background: none;
+        padding: 0;
+        gap: 2rem;
+    }
+    .menu-toggle { display: none; }
+    
+    .sobre-mi-grid {
+        grid-template-columns: 1fr 2fr;
+        align-items: center;
+    }
+    
+    .projects-grid, .lab-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
